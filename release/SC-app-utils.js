@@ -162,6 +162,82 @@ angular
   });
 ;'use strict';
 
+angular
+  .module('SC-app-utils')
+  .run(["$rootScope", "$state", "$window", "$location", "$http", "DSCacheFactory", "appConfig", function ($rootScope, $state, $window, $location, $http, DSCacheFactory, appConfig) {
+
+    // Enable angular cache if app requires it
+    if (appConfig.angularCache) {
+
+      // Configure all $http requests to use a cache created by DSCacheFactory by default:
+      new DSCacheFactory('defaultCache', {
+          maxAge: 900000, // Items added to this cache expire after 15 minutes.
+          cacheFlushInterval: 6000000, // This cache will clear itself every hour.
+          deleteOnExpire: 'aggressive' // Items will be deleted from this cache right when they expire.
+      });
+
+      $http.defaults.cache = DSCacheFactory.get('defaultCache');
+
+    }
+
+    // Setup pageNotFound event
+    $rootScope.$on('event:pageNotFound', function() {
+      // Show 404 state
+      $state.go('app.404');
+    });
+
+    // Setup serverError event
+    $rootScope.$on('event:error', function() {
+      // Show 500 state
+      $state.go('app.error');
+    });
+
+    // Setup Google Tag Manager
+    // Scroll to top when state changes
+    $rootScope.$on('$stateChangeSuccess', function() {
+      $window.scrollTo(0,0);
+
+      // Get virtual url for Google Tag Manager pageview
+      var virtualUrl = $location.path();
+
+      // Push url to GTM dataLayer
+      $window.dataLayer.push({
+        event: 'pageview',
+        virtualUrl: virtualUrl
+      });
+
+    });
+
+  }]);
+
+;'use strict';
+
+angular.module('SC-app-utils').config(["$urlRouterProvider", "$stateProvider", "$locationProvider", function($urlRouterProvider, $stateProvider, $locationProvider) {
+
+    $urlRouterProvider.when('', '/');
+
+    // Enable HTML5 mode to remove # from URL in browsers that support history API
+    $locationProvider.html5Mode(true);
+
+    $stateProvider
+      .state('app.error', {
+        views: {
+          '@': {
+            template: '<div ui-view="festivalMenu"></div><h2 style="padding:20px">We&apos;re undergoing maintenance at the moment. Please check back a bit later.</h2>'
+          }
+        }
+      })
+      .state('app.404', {
+        url: '{path:.*}',
+        views: {
+          '@': {
+            template: '<div ui-view="festivalMenu"></div><h1 style="padding-left:20px">Page not found.</h1>'
+          }
+        }
+      });
+
+  }]);;'use strict';
+
 /**
  * @ngdoc service
  * @name SC-app-utils.factory:utilitiesFactory
