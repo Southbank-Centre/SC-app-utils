@@ -16,7 +16,6 @@ angular.module('SC-app-utils').config(function($urlRouterProvider, $stateProvide
         }
       })
       .state('app.404', {
-        url: '{path:.*}',
         views: {
           '@': {
             template: '<h1 style="padding-left:20px">Page not found.</h1>'
