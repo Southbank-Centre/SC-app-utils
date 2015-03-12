@@ -192,12 +192,6 @@ angular
       $state.go('app.error');
     });
 
-    // Broadcast pageNotFound if stateChangeError
-    // Includes when path doesn't match any state
-    $rootScope.$on('$stateChangeError', function() {
-      $rootScope.$broadcast('event:pageNotFound');
-    });
-
     // Setup Google Tag Manager
     // Scroll to top when state changes
     $rootScope.$on('$stateChangeSuccess', function() {
@@ -220,7 +214,11 @@ angular
 
 angular.module('SC-app-utils').config(["$urlRouterProvider", "$stateProvider", "$locationProvider", function($urlRouterProvider, $stateProvider, $locationProvider) {
 
+    // If no path after hostname, add a slash, which redirects to home state
     $urlRouterProvider.when('', '/');
+
+    // If no matching state is found, default to 404 state
+    $urlRouterProvider.otherwise('/404');
 
     // Enable HTML5 mode to remove # from URL in browsers that support history API
     $locationProvider.html5Mode(true);
@@ -234,6 +232,7 @@ angular.module('SC-app-utils').config(["$urlRouterProvider", "$stateProvider", "
         }
       })
       .state('app.404', {
+        url: '/404',
         views: {
           '@': {
             template: '<h1 style="padding-left:20px">Page not found.</h1>'

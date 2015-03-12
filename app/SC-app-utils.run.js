@@ -30,12 +30,6 @@ angular
       $state.go('app.error');
     });
 
-    // Broadcast pageNotFound if stateChangeError
-    // Includes when path doesn't match any state
-    $rootScope.$on('$stateChangeError', function() {
-      $rootScope.$broadcast('event:pageNotFound');
-    });
-
     // Setup Google Tag Manager
     // Scroll to top when state changes
     $rootScope.$on('$stateChangeSuccess', function() {
