@@ -223,7 +223,7 @@ angular.module('SC-app-utils').config(["$urlRouterProvider", "$stateProvider", "
       .state('app.error', {
         views: {
           '@': {
-            template: '<div ui-view="festivalMenu"></div><h2 style="padding:20px">We&apos;re undergoing maintenance at the moment. Please check back a bit later.</h2>'
+            template: '<h2 style="padding:20px">We&apos;re undergoing maintenance at the moment. Please check back a bit later.</h2>'
           }
         }
       })
@@ -231,7 +231,7 @@ angular.module('SC-app-utils').config(["$urlRouterProvider", "$stateProvider", "
         url: '{path:.*}',
         views: {
           '@': {
-            template: '<div ui-view="festivalMenu"></div><h1 style="padding-left:20px">Page not found.</h1>'
+            template: '<h1 style="padding-left:20px">Page not found.</h1>'
           }
         }
       });
