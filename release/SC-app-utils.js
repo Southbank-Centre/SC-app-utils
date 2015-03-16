@@ -24,7 +24,7 @@ angular.module('SC-app-utils')
    * 
    * NB - not currently used - use css table-cell property instead if possible
    */
-  .directive('cssEqualHeight', function () {
+  .directive('scCssEqualHeight', function () {
     return {
       restrict: 'A',
       link: function (scope, element, attr) {
@@ -44,10 +44,10 @@ angular.module('SC-app-utils')
    *
    * @description
    * Lazy load list pages images that have a class of 'lazy'
-   * NB - add 'key-up-lazy' direction to any free text filter (see keyUpLazy)
+   * NB - add 'key-up-lazy' directive to any free text filter (see keyUpLazy)
    *
    */
-  .directive('lazy', ["$timeout", function($timeout) {
+  .directive('scLazy', ["$timeout", function($timeout) {
     return {
       restrict: 'C',
       link: function (scope, element) {
