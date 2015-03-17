@@ -11,7 +11,10 @@ angular
   .module('SC-app-utils', [
     'angular.filter',
     'angularMoment',
-]);;'use strict';
+    'angular-data.DSCacheFactory',
+    'infinite-scroll',
+    'angularMoment'
+  ]);;'use strict';
 
 angular.module('SC-app-utils')
   /**
