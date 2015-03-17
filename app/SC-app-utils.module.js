@@ -13,5 +13,5 @@ angular
     'angularMoment',
     'angular-data.DSCacheFactory',
     'infinite-scroll',
-    'angularMoment'
+    'duScroll'
   ]);

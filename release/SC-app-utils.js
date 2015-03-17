@@ -13,7 +13,7 @@ angular
     'angularMoment',
     'angular-data.DSCacheFactory',
     'infinite-scroll',
-    'angularMoment'
+    'duScroll'
   ]);;'use strict';
 
 angular.module('SC-app-utils')
