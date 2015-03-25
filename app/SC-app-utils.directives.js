@@ -59,8 +59,8 @@ angular.module('SC-app-utils')
   .directive('scKeyUpLazy', function() {
     return {
       restrict: 'A',
-      link: function (scope, element, attr) {
-        element.on('keyup', function(event) {
+      link: function (scope, element) {
+        element.on('keyup', function() {
           angular.element('html,body').scroll();
         });
       }
@@ -80,11 +80,11 @@ angular.module('SC-app-utils')
       scope: {
         scroll: '=scScrollPosition'
       },
-      link: function(scope, element, attrs) {
+      link: function(scope) {
         var windowEl = angular.element($window);
         var handler = function() {
           scope.scroll = windowEl.scrollTop();
-        }
+        };
         windowEl.on('scroll', scope.$apply.bind(scope, handler));
         handler();
       }

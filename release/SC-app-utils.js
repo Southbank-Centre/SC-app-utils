@@ -47,7 +47,7 @@ angular.module('SC-app-utils')
    *
    * @description
    * Lazy load list pages images that have a class of 'lazy'
-   * NB - add 'key-up-lazy' directive to any free text filter (see keyUpLazy)
+   * NB - add 'sc-key-up-lazy' directive to any free text filter (see scKeyUpLazy)
    *
    */
   .directive('scLazy', ["$timeout", function($timeout) {
@@ -60,6 +60,49 @@ angular.module('SC-app-utils')
               effect : 'fadeIn'
           }); 
         }, 0); 
+      }
+    };
+  }])
+  /**
+   * @ngdoc directive
+   * @name SC-app-utils.directive:keyUpLazy
+   * @directive
+   *
+   * @description
+   * Triggers scroll on keydown so that lazy-loaded images load
+   *
+   */
+  .directive('scKeyUpLazy', function() {
+    return {
+      restrict: 'A',
+      link: function (scope, element) {
+        element.on('keyup', function() {
+          angular.element('html,body').scroll();
+        });
+      }
+    };
+  })
+  /**
+   * @ngdoc directive
+   * @name SC-app-utils.directive:scrollPosition
+   * @directive
+   *
+   * @description
+   * Adds the scroll position to the scope to allow for scroll events (eg show/hide element)
+   *
+   */
+  .directive('scScrollPosition', ["$window", function($window) {
+    return {
+      scope: {
+        scroll: '=scScrollPosition'
+      },
+      link: function(scope) {
+        var windowEl = angular.element($window);
+        var handler = function() {
+          scope.scroll = windowEl.scrollTop();
+        };
+        windowEl.on('scroll', scope.$apply.bind(scope, handler));
+        handler();
       }
     };
   }]);;'use strict';
