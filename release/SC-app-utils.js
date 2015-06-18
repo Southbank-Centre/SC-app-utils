@@ -238,9 +238,12 @@ angular
       $state.go('app.error');
     });
 
-    // Setup Google Tag Manager
-    // Scroll to top when state changes
+    // Set boolean for when a pageview event has been sent to GA
+    $rootScope.gaPageViewOnStateChange = false;
+
     $rootScope.$on('$stateChangeSuccess', function() {
+
+      // Scroll to top when state changes
       $window.scrollTo(0,0);
 
       // Get virtual url for Google Tag Manager pageview
@@ -251,6 +254,9 @@ angular
         event: 'pageview',
         virtualUrl: virtualUrl
       });
+
+      // console.log('pageview sent');
+      $rootScope.gaPageViewOnStateChange = true;
 
     });
 
