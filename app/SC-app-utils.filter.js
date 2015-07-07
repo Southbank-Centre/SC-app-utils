@@ -98,4 +98,31 @@ angular
 
     };
 
+  })
+  /**
+   * @ngdoc filter
+   * @name SC-app-utils.filter:betterSlugify
+   * @filter
+   *
+   * @description
+   * Improves upon a8m's slugify filter to better match Drupal's pathauto default settings
+   */
+  .filter('betterSlugify', function () {
+    return function (input, sub) {
+
+      var isUndefined = angular.isUndefined;
+      var isString = angular.isString;
+      var replace = (isUndefined(sub)) ? '-' : sub;
+
+      if(isString(input)) {
+        return input.toLowerCase()
+          .replace(/\s+/g, replace) // replace any space with a dash
+          .replace(/[^\w\-\s]+/g, '') // remove unwanted characters
+          .trim() //trim spaces
+          .replace(/\-\-+/g, '-'); // remove duplicate dashes
+      }
+
+      return input;
+    };
+
   });
