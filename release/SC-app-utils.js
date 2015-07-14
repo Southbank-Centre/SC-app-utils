@@ -11,7 +11,7 @@ angular
   .module('SC-app-utils', [
     'angular.filter',
     'angularMoment',
-    'angular-data.DSCacheFactory',
+    'angular-cache',
     'infinite-scroll',
     'duScroll'
   ]);;'use strict';
