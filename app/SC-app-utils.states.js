@@ -2,14 +2,23 @@
 
 angular.module('SC-app-utils').config(function($urlRouterProvider, $stateProvider, $locationProvider) {
 
+    // Enable HTML5 mode to remove # from URL in browsers that support history API
+    $locationProvider.html5Mode(true);
+
+    // Add hashbang (#!) to urls for legacy SEO support
+    $locationProvider.hashPrefix('!');
+
     // If no path after hostname, add a slash, which redirects to home state
     $urlRouterProvider.when('', '/');
 
     // If no matching state is found, default to 404 state
     $urlRouterProvider.otherwise('/404');
 
-    // Enable HTML5 mode to remove # from URL in browsers that support history API
-    $locationProvider.html5Mode(true);
+    // Uncomment the below to test routing for legacy browsers (non html5mode)
+    // $provide.decorator('$sniffer', function($delegate) {
+    //   $delegate.history = false;
+    //   return $delegate;
+    // });
 
     $stateProvider
       .state('app.error', {
