@@ -302,6 +302,9 @@ angular.module('SC-app-utils').config(["$urlRouterProvider", "$stateProvider", "
     // If no path after hostname, add a slash, which redirects to home state
     $urlRouterProvider.when('', '/');
 
+    // If index.html, redirect to home state
+    $urlRouterProvider.when('/index.html', '/');
+
     // If no matching state is found, default to 404 state
     $urlRouterProvider.otherwise('/404');
 
