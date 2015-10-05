@@ -18,6 +18,9 @@ angular
 
     }
 
+    // Add state to rootScope to enable conditional addition of prerender 404 metatag
+    $rootScope.$state = $state;
+
     // Setup pageNotFound event
     $rootScope.$on('event:pageNotFound', function() {
       // Show 404 state
